@@ -1,4 +1,5 @@
 package server;
+
 import java.io.DataInputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -11,7 +12,7 @@ public class Main {
 		try {
 			PrintWriter out = null;
 			ServerSocket sock = new ServerSocket(6666);
-			System.out.println("Server wartet....");
+			System.out.println("Echo-Server wartet....");
 			int noRequests = 0;
 			while (noRequests < 1000) {
 				Socket s = sock.accept();

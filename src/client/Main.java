@@ -1,10 +1,10 @@
 package client;
+
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
-import java.nio.CharBuffer;
 
 public class Main {
 	public static void main(String[] args) {
@@ -17,11 +17,12 @@ public class Main {
 			dout.flush();
 
 			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			while (true) {
+			String response = "";
+			while ((response = in.readLine()) != null) {
+				System.out.println("Response from Server:" + response);
 			}
 
 		} catch (Exception e) {
-			System.out.println("hier");
 			e.printStackTrace();
 		} finally {
 			try {
@@ -31,21 +32,5 @@ public class Main {
 				e.printStackTrace();
 			}
 		}
-	}
-	public static String getinput() {
-		StringBuilder sb = new StringBuilder();
-		try (BufferedReader reader = new BufferedReader(new InputStreamReader(System.in))) {
-		    CharBuffer buffer = CharBuffer.allocate(1024);
-		    while (reader.read(buffer) != -1) {
-		        buffer.flip();
-		        sb.append(buffer);
-		        buffer.clear();
-		    }
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println(sb);
-		return sb.toString();
 	}
 }
