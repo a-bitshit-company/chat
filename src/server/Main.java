@@ -18,17 +18,21 @@ public class Main {
 			System.out.println("Echo-Server wartet...");
 			
 			for(;;){
-				Socket s = sock.accept();
+				if(sock.)
+				sock.accept();
 				sessions.add(s);
 				
-				System.out.println(sessions.size());
-				DataInputStream dis = new DataInputStream(s.getInputStream());
-				String str = (String) dis.readUTF();
-				System.out.println("message= " + str);
+				for(Socket s : sessions) {
+				
+					System.out.println(sessions.size());
+					DataInputStream dis = new DataInputStream(s.getInputStream());
+					String str = (String) dis.readUTF();
+					System.out.println("message= " + str);
 
-				out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-				out.write("> " + str + "\n");
-				out.flush();
+					out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
+					out.write(str + "\n");
+					out.flush();
+				}
 			}
 			//out.close();
 			//sock.close();

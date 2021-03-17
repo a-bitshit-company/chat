@@ -20,7 +20,7 @@ public class Main {
 			dout.writeUTF("Client connected");
 			for(;;) {
 				if(sc.hasNext()) {
-					System.out.print("<--");
+					System.out.print("< ");
 					dout.writeUTF(sc.nextLine());
 					dout.flush();
 				}
@@ -28,7 +28,7 @@ public class Main {
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 				response = "";
 				while((response = in.readLine()) != null) {
-					System.out.println("-->" + response);
+					System.out.println("> " + response);
 				}
 			}
 		}catch (Exception e) {
