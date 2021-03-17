@@ -17,6 +17,7 @@ public class Main {
 		try {
 			s = new Socket("localhost", 6666);
 			dout = new DataOutputStream(s.getOutputStream());
+			dout.writeUTF("Client connected");
 			for(;;) {
 				if(sc.hasNext()) {
 					System.out.print("<--");
