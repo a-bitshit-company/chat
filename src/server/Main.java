@@ -1,33 +1,37 @@
 package server;
 
-import java.io.DataInputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.*;
+import java.net.*;
+import java.util.ArrayList;
 
 public class Main {
+	
+	
 
 	public static void main(String[] args) {
+		
+	ArrayList<Socket> sessions = new ArrayList<Socket>();
+		
 		try {
 			PrintWriter out = null;
 			ServerSocket sock = new ServerSocket(6666);
-			System.out.println("Echo-Server wartet....");
-			int noRequests = 0;
-			while (noRequests < 1000) {
+			System.out.println("Echo-Server wartet...");
+			
+			for(;;){
 				Socket s = sock.accept();
+				sessions.add(s);
+				
+				System.out.println(sessions.size());
 				DataInputStream dis = new DataInputStream(s.getInputStream());
 				String str = (String) dis.readUTF();
 				System.out.println("message= " + str);
-				System.out.println("request:" + noRequests);
 
 				out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-				out.write("Echo:" + str + "\n");
+				out.write("> " + str + "\n");
 				out.flush();
-				noRequests++;
 			}
-			out.close();
-			sock.close();
+			//out.close();
+			//sock.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
