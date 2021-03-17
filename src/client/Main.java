@@ -5,26 +5,34 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
+import java.util.Scanner;
 
 public class Main {
+	static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
 		Socket s = null;
 		DataOutputStream dout = null;
+		BufferedReader in;
+		String response= "";
 		try {
 			s = new Socket("localhost", 6666);
 			dout = new DataOutputStream(s.getOutputStream());
-			dout.writeUTF("Hello Server");
-			dout.flush();
-
-			BufferedReader in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-			String response = "";
-			while ((response = in.readLine()) != null) {
-				System.out.println("Response from Server:" + response);
+			for(;;) {
+				if(sc.hasNext()) {
+					System.out.print("<--");
+					dout.writeUTF(sc.nextLine());
+					dout.flush();
+				}
+				
+				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
+				response = "";
+				while((response = in.readLine()) != null) {
+					System.out.println("-->" + response);
+				}
 			}
-
-		} catch (Exception e) {
+		}catch (Exception e) {
 			e.printStackTrace();
-		} finally {
+		}finally {
 			try {
 				s.close();
 				dout.close();
@@ -34,3 +42,4 @@ public class Main {
 		}
 	}
 }
+		
