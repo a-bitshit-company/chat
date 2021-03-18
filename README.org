@@ -1,1 +1,2 @@
 * todo: write readme
+we use java because mr greinöcker said so

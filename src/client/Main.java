@@ -1,15 +1,14 @@
 package client;
 
-import java.io.BufferedReader;
+import java.io.BufferedReader;	
 import java.io.DataOutputStream;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.Socket;
 import java.util.Scanner;
 
 public class Main {
-	static Scanner sc = new Scanner(System.in);
 	public static void main(String[] args) {
+	    Scanner sc = new Scanner(System.in);
 		Socket s = null;
 		DataOutputStream dout = null;
 		BufferedReader in;
@@ -35,12 +34,12 @@ public class Main {
 			e.printStackTrace();
 		}finally {
 			try {
+				sc.close();
 				s.close();
 				dout.close();
-			} catch (IOException e) {
+			} catch (Exception e) {
 				e.printStackTrace();
 			}
 		}
 	}
 }
-		

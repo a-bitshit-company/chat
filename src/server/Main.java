@@ -1,37 +1,33 @@
 package server;
 
 import java.io.*;
-import java.net.*;
-import java.util.ArrayList;
+import java.net.*;	
 
 public class Main {
 	
-	
-
-	public static void main(String[] args) {
-		
-	ArrayList<Socket> sessions = new ArrayList<Socket>();
-		
+	public static void main(String[] args) throws IOException {
+		ServerSocket sock = new ServerSocket(6666);
+		ConnectionHandler con = new ConnectionHandler(sock);
+		con.start();
 		try {
 			PrintWriter out = null;
-			ServerSocket sock = new ServerSocket(6666);
-			System.out.println("Echo-Server wartet...");
-			
+			System.out.println("LOG: server started");
 			for(;;){
-				if(sock.)
-				sock.accept();
-				sessions.add(s);
-				
-				for(Socket s : sessions) {
-				
-					System.out.println(sessions.size());
+				String str="";
+				System.out.println("LOG: reached server.Main:17");
+				for(Socket s : con.connections) {
+					System.out.println("LOG: reached server.Main:19");
 					DataInputStream dis = new DataInputStream(s.getInputStream());
-					String str = (String) dis.readUTF();
-					System.out.println("message= " + str);
-
-					out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-					out.write(str + "\n");
-					out.flush();
+					System.out.println("LOG: reached server.Main:21");
+					str = dis.readUTF().toString(); // TODO: this shit blocks
+				}
+				if(!str.equals("")){
+					System.out.println("LOG: message=" + str);
+					for(Socket s : con.connections) {
+						out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
+						out.write(str + "\n");
+						out.flush();
+					}
 				}
 			}
 			//out.close();
