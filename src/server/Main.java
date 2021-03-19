@@ -2,6 +2,7 @@ package server;
 
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 import java.util.Scanner;	
 
 public class Main {
@@ -9,6 +10,7 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		ServerSocket sock = new ServerSocket(6666);
 		ConnectionHandler con = new ConnectionHandler(sock);
+		ArrayList<Socket> cons;
 		con.start();
 		System.out.println("server started, waiting for connections");
 		DataInputStream dis;
@@ -38,7 +40,8 @@ public class Main {
 //				}
 				str="";
 				System.out.print(""); //don't delete
-				for(Socket s : con.getConnections()) {
+				cons = (ArrayList<Socket>) con.getConnections().clone();
+				for(Socket s : cons) {
 					dis = new DataInputStream(s.getInputStream());
 					while(dis.available() > 0) {
 						System.out.println(""); //don't delete
