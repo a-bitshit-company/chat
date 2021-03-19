@@ -11,7 +11,7 @@ public class ConnectionHandler extends Thread {
 		this.sock=sock;
 	}
 	
-	ArrayList<Socket> connections = new ArrayList<Socket>();
+	private ArrayList<Socket> connections = new ArrayList<Socket>();
 	public void run() {
 		for(;;) {
 			try {
