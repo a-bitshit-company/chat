@@ -22,4 +22,7 @@ public class ConnectionHandler extends Thread {
 			}
 		}
 	}
+	public ArrayList<Socket> getConnections() {
+		return connections;
+	}
 }
