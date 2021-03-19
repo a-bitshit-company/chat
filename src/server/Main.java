@@ -17,33 +17,41 @@ public class Main {
 		try {
 			PrintWriter out = null;
 			for(;;){
-				if(sc.hasNextLine()) {
-					switch(sc.nextLine()){
-					case "exit":
-						out.close();
-						sock.close();
-						System.exit(0);
-						break;
-					case "clients":
-						for(int i = 0; i < con.getConnections().size(); i++){
-							System.out.println(i + ") "); //add nicks here
-							break;
-						}
-					}
-				}
+//				System.out.println("20");
+//				if(sc.hasNextLine()) {
+//					System.out.println("22");
+//					switch(sc.nextLine()){
+//					case "exit":
+//						out.close();
+//						sock.close();
+//						System.exit(0);
+//						break;
+//					case "clients":
+//						for(int i = 0; i < con.getConnections().size(); i++){
+//							System.out.println(i + ") "); //add nicks here
+//						}
+//						break;
+//					default:
+//						System.out.println("asdad");
+//						break;
+//					}
+//				}
 				str="";
+				System.out.print(""); //don't delete
 				for(Socket s : con.getConnections()) {
 					dis = new DataInputStream(s.getInputStream());
-					if(dis.available() > 0) {
+					while(dis.available() > 0) {
+						System.out.println(""); //don't delete
 						str = dis.readUTF().toString();
-					}
-				}
-				if(!str.equals("")){
-					System.out.println("LOG: message=" + str);
-					for(Socket s : con.getConnections()) {
-						out = new PrintWriter(new OutputStreamWriter(s.getOutputStream()));
-						out.write(str + "\n");
-						out.flush();
+						System.out.println("LOG: message=" + str);
+						for(Socket so : con.getConnections()) {
+							if(!so.equals(s)) {
+								out = new PrintWriter(new OutputStreamWriter(so.getOutputStream()));
+								out.write(str + "\n");
+								System.out.println("LOG: sent message to " + so.hashCode());
+								out.flush();
+							}
+						}
 					}
 				}
 			}

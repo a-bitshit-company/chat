@@ -18,16 +18,17 @@ public class Main {
 			dout = new DataOutputStream(s.getOutputStream());
 			dout.writeUTF("Client connected");
 			for(;;) {
-				if(sc.hasNext()) {
-					System.out.print("used< ");
+				System.out.print("< ");
+				while(sc.hasNext()) {
 					dout.writeUTF(sc.nextLine());
 					dout.flush();
+					System.out.print("< ");
 				}
 				
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 				response = "";
 				while((response = in.readLine()) != null) {
-					System.out.println("das> " + response);
+					System.out.println("> " + response);
 				}
 			}
 		}catch (Exception e) {
