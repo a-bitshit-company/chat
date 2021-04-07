@@ -50,6 +50,7 @@ public class Main {
 						for(Socket so : con.getConnections()) {
 							if(!so.equals(s)) {
 								out = new PrintWriter(new OutputStreamWriter(so.getOutputStream()));
+								System.out.println(str);
 								out.write(str + "\n");
 								System.out.println("LOG: sent message to " + so.hashCode());
 								out.flush();

@@ -19,15 +19,15 @@ public class Main {
 			dout.writeUTF("Client connected");
 			for(;;) {
 				System.out.print("< ");
-				while(sc.hasNext()) {
+				if(sc.hasNext()) {
 					dout.writeUTF(sc.nextLine());
 					dout.flush();
-					System.out.print("< ");
 				}
-				
+				System.out.println("bla");
 				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
 				response = "";
-				while((response = in.readLine()) != null) {
+				while(in.ready()){
+					response = in.readLine();
 					System.out.println("> " + response);
 				}
 			}
