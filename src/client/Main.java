@@ -8,34 +8,31 @@ import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-	    Scanner sc = new Scanner(System.in);
 		Socket s = null;
 		DataOutputStream dout = null;
-		BufferedReader in;
-		String response= "";
+		ConnectionHandler con;
+	    Scanner in = new Scanner(System.in);
 		try {
 			s = new Socket("localhost", 6666);
+			con = new ConnectionHandler(new BufferedReader(new InputStreamReader(s.getInputStream())));
+			con.run();
+			
 			dout = new DataOutputStream(s.getOutputStream());
 			dout.writeUTF("Client connected");
 			for(;;) {
 				System.out.print("< ");
-				if(sc.hasNext()) {
-					dout.writeUTF(sc.nextLine());
+				while(in.hasNext()) {
+					dout.writeUTF(in.nextLine());
 					dout.flush();
+					System.out.print("< ");
 				}
-				System.out.println("bla");
-				in = new BufferedReader(new InputStreamReader(s.getInputStream()));
-				response = "";
-				while(in.ready()){
-					response = in.readLine();
-					System.out.println("> " + response);
-				}
+				
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			try {
-				sc.close();
+				in.close();
 				s.close();
 				dout.close();
 			} catch (Exception e) {
