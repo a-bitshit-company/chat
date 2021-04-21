@@ -5,13 +5,13 @@ import java.io.*;
 import java.net.*;
 
 public class ConnectionHandler extends Thread {
+	private ArrayList<Socket> connections = new ArrayList<Socket>();
 	ServerSocket sock;
 	
 	public ConnectionHandler(ServerSocket sock){
 		this.sock=sock;
 	}
 	
-	private ArrayList<Socket> connections = new ArrayList<Socket>();
 	public void run() {
 		for(;;) {
 			try {
