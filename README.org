@@ -1,2 +1,2 @@
-* todo: write readme
-we use java because mr greinöcker said so
+Simple java based chat server
+high performance, intuitive interface, simple to use, absolute masterpiece 10/10
