@@ -18,7 +18,8 @@ public class Main {
 			con.start();
 			
 			dout = new DataOutputStream(s.getOutputStream());
-			dout.writeUTF("Client connected");
+			System.out.print("Please enter Nickname: ");
+			dout.writeUTF(in.nextLine() + " connected");
 			for(;;) {
 				while(in.hasNext()) {
 					dout.writeUTF(in.nextLine());

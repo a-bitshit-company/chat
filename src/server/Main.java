@@ -21,7 +21,7 @@ public class Main {
 				str="";
 				System.out.print(""); //don't delete
 				cons = (ArrayList<ClientInfo>) con.getConnections().clone();
-				for(ClientInfo inf: cons) {
+				for(ClientInfo inf : cons) {
 					//System.out.println(inf.getSock());
 					dis = new DataInputStream(inf.getSock().getInputStream());
 					while(dis.available() > 0) {
