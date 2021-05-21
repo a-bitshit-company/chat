@@ -5,7 +5,7 @@ import java.io.*;
 import java.net.*;
 
 public class ConnectionHandler extends Thread {
-	private ArrayList<Socket> connections = new ArrayList<Socket>();
+	private ArrayList<ClientInfo> connections = new ArrayList<ClientInfo>();
 	ServerSocket sock;
 	
 	public ConnectionHandler(ServerSocket sock){
@@ -15,14 +15,14 @@ public class ConnectionHandler extends Thread {
 	public void run() {
 		for(;;) {
 			try {
-				this.connections.add(sock.accept());
+				this.connections.add(new ClientInfo(sock.accept()));
 				System.out.println("CON: new connection ("+connections.size()+")");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 		}
 	}
-	public ArrayList<Socket> getConnections() {
+	public ArrayList<ClientInfo> getConnections() {
 		return connections;
 	}
 }
