@@ -1,2 +1,2 @@
-Simple java based chat server
+Simple java based chat server:
 high performance, intuitive interface, simple to use, absolute masterpiece 10/10 nullpointerexceptions
