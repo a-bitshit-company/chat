@@ -3,6 +3,7 @@ package server;
 import java.io.*;	
 import java.net.*;
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class Main {
 	
@@ -10,6 +11,9 @@ public class Main {
 	public static void main(String[] args) throws IOException {
 		ServerSocket sock = new ServerSocket(6666);
 		ConnectionHandler con = new ConnectionHandler(sock);
+		PingTask ping = new PingTask(con);
+		Timer pingTimer = new Timer();
+		pingTimer.schedule(ping, 0, 5000);
 		ArrayList<ClientInfo> cons;
 		con.start();
 		System.out.println("server started, waiting for connections");
@@ -21,6 +25,7 @@ public class Main {
 				str="";
 				System.out.print(""); //don't delete
 				cons = (ArrayList<ClientInfo>) con.getConnections().clone();
+
 				for(ClientInfo inf : cons) {
 					//System.out.println(inf.getSock());
 					dis = new DataInputStream(inf.getSock().getInputStream());
@@ -32,7 +37,7 @@ public class Main {
 							if(!info.getSock().equals(inf.getSock())) {
 								out = new PrintWriter(new OutputStreamWriter(info.getSock().getOutputStream()));
 								System.out.println(str);
-								out.write(str + "\n");
+								out.println(str);
 								System.out.println("LOG: sent message to " + info.getSock().hashCode());
 								out.flush();
 							}

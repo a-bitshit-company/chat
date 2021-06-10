@@ -12,14 +12,15 @@ public class Main {
 		DataOutputStream dout = null;
 		InputHandler con;
 	    Scanner in = new Scanner(System.in);
+	    System.out.print("Nickname: ");
+	    String name = in.nextLine();
 		try {
 			s = new Socket("localhost", 6666);
 			con = new InputHandler(new BufferedReader(new InputStreamReader(s.getInputStream())));
 			con.start();
 			
 			dout = new DataOutputStream(s.getOutputStream());
-			System.out.print("Please enter Nickname: ");
-			dout.writeUTF(in.nextLine() + " connected");
+			dout.writeUTF(name);
 			for(;;) {
 				while(in.hasNext()) {
 					dout.writeUTF(in.nextLine());
